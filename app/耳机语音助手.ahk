@@ -229,9 +229,15 @@ A_TrayMenu.Add("退出", (*) => ExitApp())
 A_TrayMenu.Default := "设置..."
 
 ; ---------- 设置程序（独立 exe）与配置热加载 ----------
-global SETEXE := A_ScriptDir "\耳机语音助手设置.exe"
+global SETEXE := FindSetExe()
+FindSetExe() {
+    for n in ["耳机语音助手设置.exe", "vibe-headset-settings.exe"]
+        if FileExist(A_ScriptDir "\" n)
+            return A_ScriptDir "\" n
+    return A_ScriptDir "\耳机语音助手设置.exe"
+}
 ShowGui() {
-    if WinExist("耳机语音助手 设置 ahk_exe 耳机语音助手设置.exe")
+    if WinExist("耳机语音助手 设置")
         WinActivate
     else if FileExist(SETEXE)
         Run '"' SETEXE '"'
