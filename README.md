@@ -28,11 +28,11 @@
 ## 安装三步
 
 1. **运行引擎**  
-   - 免安装：下载 Release 里的 `耳机语音助手.exe`，放到任意目录（建议与设置 exe 同目录），双击运行。  
+   - 免安装：下载 Release 里的 `vibe-headset.exe`，放到任意目录（建议与设置 exe 同目录），双击运行。  
    - 或源码：安装 AutoHotkey v2 后，双击 `app/耳机语音助手.ahk`。
 
 2. **打开设置，配快捷键 / 开机启动**  
-   - 运行同目录（或 `release/`）下的 `耳机语音助手设置.exe`，或托盘图标 →「设置…」。  
+   - 运行同目录（或 `release/`）下的 `vibe-headset-settings.exe`，或托盘图标 →「设置…」。  
    - 把「语音输入快捷键」改成与微信/输入法里一致（默认 Ctrl+Win）。  
    - 需要的话勾选开机启动。配置保存在 `%APPDATA%\HeadsetVoice\config.ini`（不要把个人 config 提交进仓库）。
 
@@ -58,8 +58,8 @@
 │   └── 耳机语音助手设置.spec
 ├── practice/              # 本地练习场（纯前端）
 ├── release/               # 预编译 exe（可挂到 GitHub Releases）
-│   ├── 耳机语音助手.exe
-│   └── 耳机语音助手设置.exe
+│   ├── vibe-headset.exe
+│   └── vibe-headset-settings.exe
 ├── docs/                  # 演示素材（demo.gif 待补）
 ├── LICENSE                # MIT
 └── README.md
