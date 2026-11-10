@@ -1,0 +1,67 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>耳机语音输入练习场</title><link rel="stylesheet" href="style.css"></head><body>
+<header class="nav glass-nav"><div class="in"><div class="brand" data-go="home">耳机语音输入练习场</div>
+<div class="seg" id="tabs"><button data-go="home" class="active">开始</button><button data-go="lib">提示词库</button><button data-go="board">排行榜</button><button data-go="history">历史</button></div></div></header>
+<main>
+<!-- 首页 -->
+<section id="v-home">
+ <div class="hero"><h1>用耳机说出来，<br>再把它改对。</h1><p>按中间键语音输入，上键删除、长按左移，下键回车提交。比拼速度、准确率和改错操作。</p></div>
+ <div style="margin-top:28px" class="bar"><input type="text" id="nick" placeholder="你的昵称" maxlength="16"><span class="hint" id="nickHint">昵称会显示在排行榜上</span></div>
+ <div style="margin-top:28px"><div class="lbl">选择模式</div><div class="grid">
+  <div class="card" data-mode="daily"><h3>每日挑战</h3><p id="dailyDesc">每天一道固定题，和自己的昨天比。</p></div>
+  <div class="card" data-mode="campaign"><h3>闯关</h3><p id="campDesc">30 关由短到长，满足准确率要求才能解锁下一关。</p></div>
+  <div class="card" data-mode="practice"><h3>自由练习</h3><p>从题库任选一题，把它说出来。</p></div>
+  <div class="card" data-mode="edit"><h3>修改训练</h3><p>输入框里已有一段写错的话：移光标、删多余、改错字、用语音补漏。</p></div>
+  <div class="card" data-mode="lib"><h3>提示词库</h3><p>来自 X 上大家分享的真实 AI 提示词，可收藏、复制，边练边记。</p></div>
+ </div></div>
+ <div style="margin-top:28px"><div class="lbl">选项</div><div class="panel">
+  <div class="row"><div class="t">忽略标点差异</div><label class="sw"><input type="checkbox" id="optPunct"></label></div>
+  <div class="row"><div class="t">数字写法不同不算错（如「九」和「9」）</div><label class="sw"><input type="checkbox" id="optNum"></label></div>
+  <div class="row"><div class="t">严格模式（必须 100% 正确才算通过）</div><label class="sw"><input type="checkbox" id="optStrict"></label></div>
+  <div class="row"><div class="t">编辑时实时显示差异</div><label class="sw"><input type="checkbox" id="optLive" checked></label></div>
+ </div></div>
+</section>
+<!-- 题库 -->
+<section id="v-pick" class="hidden"><div class="hero"><h1 id="pickTitle">选择题目</h1></div><div id="pickList" style="margin-top:24px;display:flex;flex-direction:column;gap:26px"></div></section>
+<!-- 答题 -->
+<section id="v-play" class="hidden">
+ <div class="lbl"><span id="playMeta"></span><span id="playBest"></span></div>
+ <div class="panel">
+  <div class="target" id="target"></div>
+  <div class="row hidden" id="editBar" style="border-top:1px solid var(--hairline)"><span class="tag acc">修改训练</span><div class="t" id="editHint" style="white-space:normal"></div><button class="mini" id="showPos">提示位置（-20%）</button></div>
+  <textarea id="input" placeholder="点这里，按耳机中间键开始说话…说完按下键（回车）提交" spellcheck="false"></textarea>
+  <div class="diff" id="live"></div>
+  <div class="stats" style="border-top:1px solid var(--hairline)">
+   <div class="stat"><b id="sTime">0.0</b><span>用时（秒）</span></div>
+   <div class="stat"><b id="sAcc">—</b><span>准确率</span></div>
+   <div class="stat"><b id="sOps">0</b><span>改错操作</span></div>
+   <div class="stat hide-sm"><b id="sBs">0 / 0 / 0</b><span>删除 / 左移 / 右移</span></div>
+  </div>
+ </div>
+ <div class="bar" style="margin-top:16px"><button class="btn p" id="submit">提交（回车）</button><button class="btn" id="reset">重来</button><button class="btn" data-go="home">返回</button><span class="hint">Shift+回车 可换行</span></div>
+</section>
+<!-- 结果 -->
+<section id="v-result" class="hidden">
+ <div class="hero"><p id="rMeta"></p><div class="big" id="rScore"></div><p id="rPass" style="font-weight:600;font-size:17px"></p><p id="rSrc" style="margin-top:6px"></p></div>
+ <div class="panel" style="margin-top:22px">
+  <div class="stats"><div class="stat"><b id="rTime"></b><span>用时（秒）</span></div><div class="stat"><b id="rAcc"></b><span>准确率</span></div><div class="stat"><b id="rCpm"></b><span id="rCpmL">字 / 分钟</span></div><div class="stat"><b id="rOps"></b><span>删除 / 左移 / 右移</span></div></div>
+  <div class="diff" id="rDiff"></div>
+  <div class="row"><span class="hint"><span class="d-sub">错字</span>　<span class="d-del">漏字</span>　<span class="d-ins">多字</span></span></div>
+ </div>
+ <div class="bar" style="margin-top:16px"><button class="btn p" id="next">下一题</button><button class="btn" id="again">再来一次</button><button class="btn" data-go="home">返回首页</button></div>
+</section>
+<!-- 提示词库 -->
+<section id="v-lib" class="hidden"><div class="hero"><h1>提示词库</h1><p id="libCount"></p></div>
+ <div style="margin-top:22px" class="seg" id="libSeg"><button data-f="all" class="active">全部</button><button data-f="fav">我的收藏</button></div>
+ <div class="panel" id="libList" style="margin-top:16px"></div></section>
+<!-- 排行榜 -->
+<section id="v-board" class="hidden"><div class="hero"><h1>排行榜</h1><p>本机记录。线上排行榜即将开放。</p></div>
+ <div style="margin-top:22px" class="seg" id="boardSeg"><button data-b="total" class="active">总榜</button><button data-b="daily">今日挑战</button><button data-b="prompt">按题目</button></div>
+ <select id="boardPrompt" class="hidden" style="margin-left:10px;height:34px;border-radius:12px;padding:0 10px;font:inherit"></select>
+ <div class="panel" id="boardList" style="margin-top:16px"></div></section>
+<!-- 历史 -->
+<section id="v-history" class="hidden"><div class="hero"><h1>历史记录</h1></div><div class="panel" id="histList" style="margin-top:22px"></div>
+ <div class="bar" style="margin-top:14px"><button class="btn" id="clearAll">清空本机记录</button></div></section>
+</main>
+<script src="js/prompts.js"></script><script src="js/storage.js"></script><script src="js/scoring.js"></script><script src="js/edit.js"></script><script src="js/app.js"></script>
+</body></html>

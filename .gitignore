@@ -1,0 +1,30 @@
+# Build / Python
+build/
+dist/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Local config & shortcuts (never commit personal settings)
+config.ini
+*.lnk
+
+# Debug / private leftovers
+keylog*
+mictest.py
+serve.py
+result.txt
+test.html
+*.gui-backup.ahk
+
+# OS junk
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Optional: keep Release binaries out of git; ship via GitHub Releases instead
+# Uncomment if you prefer source-only repo:
+release/*.exe
+# *.exe
